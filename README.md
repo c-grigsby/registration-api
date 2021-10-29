@@ -12,6 +12,7 @@
 ![language](https://img.shields.io/badge/language-C%23-orange)
 
 This server-side application is the back-end to the course registration application
+
 </div>
 
 ---
@@ -19,10 +20,10 @@ This server-side application is the back-end to the course registration applicat
 ## Project Specifications
 
 - Developed within .NET Core web API framework
+- REST API to search for courses via departments, core goals, & semesters
 - _create, read, update, delete_ (CRUD) services
-- services to search for courses via departments, core goals, & semesters
 
---- 
+---
 
 ## Changelog
 
