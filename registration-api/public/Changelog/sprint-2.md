@@ -35,7 +35,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: GET
 - Active URL: http://localhost:5001/courses/search?dept={departmentName}
 - Description: Returns a list of all courses from a department within the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21113
 
 ### CreateCourse
@@ -43,7 +43,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: POST
 - Active URL: http://localhost:5001/courses
 - Description: Creates a new course in the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21114
 
 ### UpdateCourse

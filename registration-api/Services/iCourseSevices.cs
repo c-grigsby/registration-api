@@ -11,8 +11,10 @@ namespace CourseRegistration.Services
 
     public List<Course> GetCourses();
 
+    public void AddCourse(Course course);
     public List<CourseOffering> GetCourseOfferingsBySemester(String semester);
 
     public List<CourseOffering> GetCourseOfferingsBySemesterAndDept(String semester, String department);
+
   }
 }

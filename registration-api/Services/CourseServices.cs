@@ -61,6 +61,15 @@ namespace CourseRegistration.Services
     }
 
     /*
+    * AddCourse - adds a new course to the repository
+    */
+    public void AddCourse(Course course)
+    {
+      List<Course> courses = _repo.Courses;
+      courses.Add(course);
+    }
+
+    /*
      * GetCourseOfferingsBySemester - returns all course offerings by user selected semester
      */
     public List<CourseOffering> GetCourseOfferingsBySemester(String semester)
