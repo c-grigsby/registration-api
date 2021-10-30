@@ -59,7 +59,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: DELETE
 - Active URL: http://localhost:5001/courses/{courseName}
 - Description: Deletes a course from the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21116
 
 ### GetCoreGoals

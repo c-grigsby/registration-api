@@ -101,7 +101,21 @@ namespace CourseRegistration.Controllers
       try
       {
         if (_courseServices.UpdateCourse(course)) return StatusCode(200, "Course Updated");
-        else return StatusCode(500);
+        else return BadRequest();
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server error");
+      }
+    }
+
+    [HttpDelete("{courseName}")]
+    public IActionResult DeleteCourse(string courseName)
+    {
+      try
+      {
+        if (_courseServices.DeleteCourse(courseName)) return NoContent();
+        else return BadRequest();
       }
       catch (Exception e)
       {

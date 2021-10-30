@@ -68,6 +68,7 @@ namespace CourseRegistration.Services
       List<Course> courses = _repo.Courses;
       courses.Add(course);
     }
+
     /*
     * UpdateCourse - updates a course in the repository, returns true if successful
     */
@@ -84,6 +85,23 @@ namespace CourseRegistration.Services
           c.Credits = course.Credits;
           c.Description = course.Description;
           c.Department = course.Department;
+          return true;
+        }
+      }
+      return false;
+    }
+    /*
+    * DeleteCourse - removes a course in the repository, returns true if successful
+    */
+    public Boolean DeleteCourse(string courseName)
+    {
+      List<Course> courses = _repo.Courses;
+      foreach (Course course in courses)
+      {
+        string repoCourseName = course.Name.ToLower();
+        if (repoCourseName.Equals(courseName.ToLower()))
+        {
+          courses.Remove(course);
           return true;
         }
       }

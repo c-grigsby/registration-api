@@ -14,9 +14,10 @@ namespace CourseRegistration.Services
     public void AddCourse(Course course);
 
     public Boolean UpdateCourse(Course course);
+
+    public Boolean DeleteCourse(string courseName);
     public List<CourseOffering> GetCourseOfferingsBySemester(String semester);
 
     public List<CourseOffering> GetCourseOfferingsBySemesterAndDept(String semester, String department);
-
   }
 }
