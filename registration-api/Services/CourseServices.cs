@@ -11,12 +11,16 @@ namespace CourseRegistration.Services
 
     private readonly ICourseRepository _repo;
 
-    // Default Constructor
+    /*
+    * Default Constructor
+    */
     public CourseServices()
     {
       _repo = new CourseRepository();
     }
-    // Constructor for ICourseRepository obj
+    /*
+    * Constructor for ICourseRepository
+    */
     public CourseServices(ICourseRepository courseRepo)
     {
       _repo = courseRepo;
@@ -148,10 +152,26 @@ namespace CourseRegistration.Services
       return courseOfferingsBySemesterAndDept;
     }
 
-    /* User Story Five */
+    /*
+    * GetGoalsByCourse - returns a list acamdeic goals that course fulfills
+    */
+    public List<CoreGoal> GetGoalsByCourse(string courseName)
+    {
+      List<CoreGoal> theGoals = _repo.Goals;
+      List<CoreGoal> goalsMetByCourse = new List<CoreGoal>();
 
-    /* User Story Six */
-
-    /* User Story Seven */
+      foreach (CoreGoal cg in theGoals)
+      {
+        foreach (Course c in cg.Courses)
+        {
+          string cName = c.Name.ToLower();
+          if (cName.Equals(courseName.ToLower()))
+          {
+            goalsMetByCourse.Add(cg);
+          }
+        }
+      }
+      return goalsMetByCourse;
+    }
   }
 }

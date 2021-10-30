@@ -62,18 +62,18 @@ In this sprint the project aims to implement the following API endpoints for uti
 - _implemented_
 - task ID: 21116
 
-### GetCoreGoals
+### GetGoalsByCourse
 
 - Method: GET
-- Active URL: http://localhost:5001/courses/{courseName}/goals
+- Active URL: http://localhost:5001/courses/goals/{courseName}
 - Description: Returns all core goals that are met by a course
-- _not-implemented_
+- _implemented_
 - task ID: 21117
 
 ### GetCourseOfferingsBySemester
 
 - Method: GET
-- Active URL: http://localhost:5001/courses/{courseName}/goals
+- Active URL: http://localhost:5001/courses/{courseName}/offerings?semester={semesterName}
 - Description: Returns all core goals that are met by a course
 - _not-implemented_
 - task ID: 21118

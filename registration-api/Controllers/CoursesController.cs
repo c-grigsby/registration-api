@@ -81,6 +81,21 @@ namespace CourseRegistration.Controllers
       }
     }
 
+    [HttpGet("goals/{courseName}")]
+    public IActionResult GetGoalsByCourse(string courseName)
+    {
+      try
+      {
+        List<CoreGoal> goalsMetByCourse = _courseServices.GetGoalsByCourse(courseName);
+        if (goalsMetByCourse.Count > 0) return Ok(goalsMetByCourse);
+        else return StatusCode(404, "No Core Goals for Course Found");
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server Error");
+      }
+    }
+
     [HttpPost]
     public IActionResult CreateCourse(Course course)
     {
