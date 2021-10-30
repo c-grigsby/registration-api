@@ -28,3 +28,4 @@ This server-side application is the back-end to the course registration applicat
 ## Changelog
 
 - [v0.0.1](./registration-api/public/Changelog/sprint-1.md)
+- [v0.0.2](./registration-api/public/Changelog/sprint-2.md)

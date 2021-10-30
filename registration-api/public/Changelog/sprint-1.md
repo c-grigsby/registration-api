@@ -73,4 +73,4 @@ In this sprint the project aims to implement the following features:
 
 ---
 
-### Source Code: https://github.com/CCU-Computing/registration-api-grigsby9
+### Source Code: https://github.com/CCU-Computing/registration-api-fa21-grigsby9
