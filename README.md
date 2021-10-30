@@ -6,7 +6,7 @@
           alt="War Chicken"
         />
 
-# CSCI-330 Course Registration Back-end
+# Course Registration Back-end
 
 ![dotnet](https://img.shields.io/badge/.NET-v5.0-teal)
 ![language](https://img.shields.io/badge/language-C%23-orange)
@@ -28,3 +28,4 @@ This server-side application is the back-end to the course registration applicat
 ## Changelog
 
 - [v0.0.1](./registration-api/public/Changelog/sprint-1.md)
+- [v0.0.2](./registration-api/public/Changelog/sprint-2.md)
