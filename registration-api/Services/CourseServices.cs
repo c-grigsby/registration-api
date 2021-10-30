@@ -11,12 +11,16 @@ namespace CourseRegistration.Services
 
     private readonly ICourseRepository _repo;
 
-    // Default Constructor
+    /*
+    * Default Constructor
+    */
     public CourseServices()
     {
       _repo = new CourseRepository();
     }
-    // Constructor for ICourseRepository obj
+    /*
+    * Constructor for ICourseRepository
+    */
     public CourseServices(ICourseRepository courseRepo)
     {
       _repo = courseRepo;
@@ -61,9 +65,57 @@ namespace CourseRegistration.Services
     }
 
     /*
-     * GetCourseOfferingsBySemester - returns all course offerings by user selected semester
+    * AddCourse - adds a new course to the repository
+    */
+    public void AddCourse(Course course)
+    {
+      List<Course> courses = _repo.Courses;
+      courses.Add(course);
+    }
+
+    /*
+    * UpdateCourse - updates a course in the repository, returns true if successful
+    */
+    public Boolean UpdateCourse(Course course)
+    {
+      List<Course> courses = _repo.Courses;
+      foreach (Course c in courses)
+      {
+        string courseName = c.Name.ToLower();
+        if (courseName.Equals(course.Name.ToLower()))
+        {
+          c.Name = course.Name;
+          c.Title = course.Title;
+          c.Credits = course.Credits;
+          c.Description = course.Description;
+          c.Department = course.Department;
+          return true;
+        }
+      }
+      return false;
+    }
+    /*
+    * DeleteCourse - removes a course in the repository, returns true if successful
+    */
+    public Boolean DeleteCourse(string courseName)
+    {
+      List<Course> courses = _repo.Courses;
+      foreach (Course course in courses)
+      {
+        string repoCourseName = course.Name.ToLower();
+        if (repoCourseName.Equals(courseName.ToLower()))
+        {
+          courses.Remove(course);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /*
+     * GetAllCourseOfferingsBySemester - returns all course offerings by user selected semester
      */
-    public List<CourseOffering> GetCourseOfferingsBySemester(String semester)
+    public List<CourseOffering> GetAllCourseOfferingsBySemester(String semester)
     {
       String userSemester = semester.ToLower();
       String courseSemester;
@@ -81,6 +133,28 @@ namespace CourseRegistration.Services
       }
       return courseOfferingsBySemester;
     }
+    /*
+     * GetCourseOfferingsBySemester - returns offerings for a particular course within a semester
+     */
+    public List<CourseOffering> GetCourseOfferingsBySemester(String courseName, String semester)
+    {
+      String courseSemester;
+      String course_name;
+      List<CourseOffering> courseOfferings = _repo.Offerings;
+      List<CourseOffering> courseOfferingsBySemesterAndCourse = new List<CourseOffering>();
+
+      foreach (CourseOffering course in courseOfferings)
+      {
+        courseSemester = course.Semester.ToLower();
+        course_name = course.TheCourse.Name.ToLower();
+
+        if (courseSemester.Equals(semester.ToLower()) && course_name.Equals(courseName.ToLower()))
+        {
+          courseOfferingsBySemesterAndCourse.Add(course);
+        }
+      }
+      return courseOfferingsBySemesterAndCourse;
+    }
 
     /*
      * GetCourseOfferingsBySemesterAndDept - returns all course offerings by user selected semester & dept
@@ -88,7 +162,7 @@ namespace CourseRegistration.Services
     public List<CourseOffering> GetCourseOfferingsBySemesterAndDept(String semester, String department)
     {
       List<CourseOffering> courseOfferingsBySemesterAndDept = new List<CourseOffering>();
-      List<CourseOffering> semesterOfferings = GetCourseOfferingsBySemester(semester);
+      List<CourseOffering> semesterOfferings = GetAllCourseOfferingsBySemester(semester);
 
       foreach (CourseOffering c in semesterOfferings)
       {
@@ -100,10 +174,26 @@ namespace CourseRegistration.Services
       return courseOfferingsBySemesterAndDept;
     }
 
-    /* User Story Five */
+    /*
+    * GetGoalsByCourse - returns a list acamdeic goals that course fulfills
+    */
+    public List<CoreGoal> GetGoalsByCourse(string courseName)
+    {
+      List<CoreGoal> theGoals = _repo.Goals;
+      List<CoreGoal> goalsMetByCourse = new List<CoreGoal>();
 
-    /* User Story Six */
-
-    /* User Story Seven */
+      foreach (CoreGoal cg in theGoals)
+      {
+        foreach (Course c in cg.Courses)
+        {
+          string cName = c.Name.ToLower();
+          if (cName.Equals(courseName.ToLower()))
+          {
+            goalsMetByCourse.Add(cg);
+          }
+        }
+      }
+      return goalsMetByCourse;
+    }
   }
 }

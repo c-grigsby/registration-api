@@ -1,6 +1,6 @@
 using System;
 
-namespace CourseRegistration.Models 
+namespace CourseRegistration.Models
 {
   public class CourseOffering : IComparable<CourseOffering>
   {

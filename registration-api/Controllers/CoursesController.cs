@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using CourseRegistration.Models;
 using CourseRegistration.Services;
 
@@ -29,13 +28,13 @@ namespace CourseRegistration.Controllers
         if (courses != null) return Ok(courses);
         else return BadRequest();
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
 
-    [HttpGet("{courseName}")]
+    [HttpGet("{courseName}", Name = "GetCourse")]
     public IActionResult GetCourseByName(string courseName)
     {
       try
@@ -51,12 +50,12 @@ namespace CourseRegistration.Controllers
         }
         return StatusCode(404, "Course not found");
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
-    
+
     [HttpGet("search/")]
     public IActionResult GetCourseByDept(string dept)
     {
@@ -75,9 +74,81 @@ namespace CourseRegistration.Controllers
         if (coursesByDept.Count() > 0) return Ok(coursesByDept);
         return StatusCode(404, "Course not found");
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
+      }
+    }
+
+    [HttpGet("goals/{courseName}")]
+    public IActionResult GetGoalsByCourse(string courseName)
+    {
+      try
+      {
+        List<CoreGoal> goalsMetByCourse = _courseServices.GetGoalsByCourse(courseName);
+        if (goalsMetByCourse.Count > 0) return Ok(goalsMetByCourse);
+        else return StatusCode(404, "No Core Goals for Course Found");
+      }
+      catch (Exception err)
+      {
+        return StatusCode(500, err);
+      }
+    }
+
+    [HttpGet("{courseName}/offerings")]
+    public IActionResult GetCourseOfferingsBySemester(string courseName, string semester)
+    {
+      try
+      {
+        List<CourseOffering> courseOfferings = _courseServices.GetCourseOfferingsBySemester(courseName, semester);
+        if (courseOfferings.Count > 0) return Ok(courseOfferings);
+        else return StatusCode(404, "No Semester Offerings for Course Found");
+      }
+      catch (Exception err)
+      {
+        return StatusCode(500, err);
+      }
+    }
+
+    [HttpPost]
+    public IActionResult CreateCourse(Course course)
+    {
+      try
+      {
+        _courseServices.AddCourse(course);
+        return CreatedAtRoute("GetCourse", new { courseName = course.Name }, course);
+      }
+      catch (Exception err)
+      {
+        return StatusCode(500, err);
+      }
+    }
+
+    [HttpPut]
+    public IActionResult UpdateCourse(Course course)
+    {
+      try
+      {
+        if (_courseServices.UpdateCourse(course)) return StatusCode(200, "Course Updated");
+        else return BadRequest();
+      }
+      catch (Exception err)
+      {
+        return StatusCode(500, err);
+      }
+    }
+
+    [HttpDelete("{courseName}")]
+    public IActionResult DeleteCourse(string courseName)
+    {
+      try
+      {
+        if (_courseServices.DeleteCourse(courseName)) return NoContent();
+        else return BadRequest();
+      }
+      catch (Exception err)
+      {
+        return StatusCode(500, err);
       }
     }
   }

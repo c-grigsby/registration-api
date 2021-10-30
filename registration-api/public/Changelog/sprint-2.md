@@ -8,7 +8,7 @@
 
 ### _v0.0.2_
 
-## Status: Active
+## Status: Complete
 
 ---
 
@@ -26,7 +26,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 
 - Method: GET
 - Active URL: http://localhost:5001/courses/{courseName}
-- Description: Returns a list of all courses from the repository
+- Description: Returns course details from a course name
 - _implemented_
 - task ID: 21112
 
@@ -35,7 +35,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: GET
 - Active URL: http://localhost:5001/courses/search?dept={departmentName}
 - Description: Returns a list of all courses from a department within the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21113
 
 ### CreateCourse
@@ -43,7 +43,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: POST
 - Active URL: http://localhost:5001/courses
 - Description: Creates a new course in the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21114
 
 ### UpdateCourse
@@ -51,7 +51,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: PUT
 - Active URL: http://localhost:5001/courses/{courseName}
 - Description: Updates a course within the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21115
 
 ### DeleteCourse
@@ -59,23 +59,23 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: DELETE
 - Active URL: http://localhost:5001/courses/{courseName}
 - Description: Deletes a course from the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21116
 
-### GetCoreGoals
+### GetGoalsByCourse
 
 - Method: GET
-- Active URL: http://localhost:5001/courses/{courseName}/goals
+- Active URL: http://localhost:5001/courses/goals/{courseName}
 - Description: Returns all core goals that are met by a course
-- _not-implemented_
+- _implemented_
 - task ID: 21117
 
 ### GetCourseOfferingsBySemester
 
 - Method: GET
-- Active URL: http://localhost:5001/courses/{courseName}/goals
-- Description: Returns all core goals that are met by a course
-- _not-implemented_
+- Active URL: http://localhost:5001/courses/{courseName}/offerings?semester={semesterName}
+- Description: Returns all offerings for a particular course within a semester
+- _implemented_
 - task ID: 21118
 
 ---
