@@ -27,7 +27,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: GET
 - Active URL: http://localhost:5001/courses/{courseName}
 - Description: Returns a list of all courses from the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21112
 
 ### GetCoursesByDept

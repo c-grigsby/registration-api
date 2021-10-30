@@ -25,13 +25,35 @@ namespace CourseRegistration.Controllers
     {
       try
       {
-        IEnumerable<Course> list = _courseServices.GetCourses();
-        if (list != null) return Ok(list);
+        IEnumerable<Course> courses = _courseServices.GetCourses();
+        if (courses != null) return Ok(courses);
         else return BadRequest();
       }
-      catch (Exception ex)
+      catch (Exception e)
       {
-        return StatusCode(500, "Internal Server error");
+        return StatusCode(500, "Internal Server Error");
+      }
+    }
+
+    [HttpGet("{courseName}")]
+    public IActionResult GetCourseByName(string courseName)
+    {
+      try
+      {
+        List<Course> courses = _courseServices.GetCourses();
+        foreach (Course c in courses)
+        {
+          string course = c.Name.ToLower();
+          if (course.Equals(courseName.ToLower()))
+          {
+            return Ok(c);
+          }
+        }
+        return StatusCode(404, "Course not found");
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server Error");
       }
     }
   }

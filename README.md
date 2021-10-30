@@ -6,7 +6,7 @@
           alt="War Chicken"
         />
 
-# CSCI-330 Course Registration Back-end
+# Course Registration Back-end
 
 ![dotnet](https://img.shields.io/badge/.NET-v5.0-teal)
 ![language](https://img.shields.io/badge/language-C%23-orange)
