@@ -35,7 +35,7 @@ namespace CourseRegistration.Controllers
       }
     }
 
-    [HttpGet("{courseName}")]
+    [HttpGet("{courseName}", Name = "GetCourse")]
     public IActionResult GetCourseByName(string courseName)
     {
       try
@@ -56,7 +56,7 @@ namespace CourseRegistration.Controllers
         return StatusCode(500, "Internal Server Error");
       }
     }
-    
+
     [HttpGet("search/")]
     public IActionResult GetCourseByDept(string dept)
     {
@@ -78,6 +78,48 @@ namespace CourseRegistration.Controllers
       catch (Exception e)
       {
         return StatusCode(500, "Internal Server Error");
+      }
+    }
+
+    [HttpPost]
+    public IActionResult CreateCourse(Course course)
+    {
+      try
+      {
+        _courseServices.AddCourse(course);
+        return CreatedAtRoute("GetCourse", new { courseName = course.Name }, course);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server error");
+      }
+    }
+
+    [HttpPut]
+    public IActionResult UpdateCourse(Course course)
+    {
+      try
+      {
+        if (_courseServices.UpdateCourse(course)) return StatusCode(200, "Course Updated");
+        else return BadRequest();
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server error");
+      }
+    }
+
+    [HttpDelete("{courseName}")]
+    public IActionResult DeleteCourse(string courseName)
+    {
+      try
+      {
+        if (_courseServices.DeleteCourse(courseName)) return NoContent();
+        else return BadRequest();
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server error");
       }
     }
   }

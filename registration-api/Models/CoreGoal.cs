@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CourseRegistration.Models 
+namespace CourseRegistration.Models
 {
   public class CoreGoal : IComparable<CoreGoal>
   {

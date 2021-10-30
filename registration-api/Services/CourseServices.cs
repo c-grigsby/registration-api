@@ -61,6 +61,54 @@ namespace CourseRegistration.Services
     }
 
     /*
+    * AddCourse - adds a new course to the repository
+    */
+    public void AddCourse(Course course)
+    {
+      List<Course> courses = _repo.Courses;
+      courses.Add(course);
+    }
+
+    /*
+    * UpdateCourse - updates a course in the repository, returns true if successful
+    */
+    public Boolean UpdateCourse(Course course)
+    {
+      List<Course> courses = _repo.Courses;
+      foreach (Course c in courses)
+      {
+        string courseName = c.Name.ToLower();
+        if (courseName.Equals(course.Name.ToLower()))
+        {
+          c.Name = course.Name;
+          c.Title = course.Title;
+          c.Credits = course.Credits;
+          c.Description = course.Description;
+          c.Department = course.Department;
+          return true;
+        }
+      }
+      return false;
+    }
+    /*
+    * DeleteCourse - removes a course in the repository, returns true if successful
+    */
+    public Boolean DeleteCourse(string courseName)
+    {
+      List<Course> courses = _repo.Courses;
+      foreach (Course course in courses)
+      {
+        string repoCourseName = course.Name.ToLower();
+        if (repoCourseName.Equals(courseName.ToLower()))
+        {
+          courses.Remove(course);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /*
      * GetCourseOfferingsBySemester - returns all course offerings by user selected semester
      */
     public List<CourseOffering> GetCourseOfferingsBySemester(String semester)
