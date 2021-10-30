@@ -56,5 +56,29 @@ namespace CourseRegistration.Controllers
         return StatusCode(500, "Internal Server Error");
       }
     }
+    
+    [HttpGet("search/")]
+    public IActionResult GetCourseByDept(string dept)
+    {
+      try
+      {
+        List<Course> courses = _courseServices.GetCourses();
+        List<Course> coursesByDept = new List<Course>();
+        foreach (Course c in courses)
+        {
+          string department = c.Department.ToLower();
+          if (department.Equals(dept.ToLower()))
+          {
+            coursesByDept.Add(c);
+          }
+        }
+        if (coursesByDept.Count() > 0) return Ok(coursesByDept);
+        return StatusCode(404, "Course not found");
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server Error");
+      }
+    }
   }
 }
