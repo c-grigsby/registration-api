@@ -74,8 +74,8 @@ In this sprint the project aims to implement the following API endpoints for uti
 
 - Method: GET
 - Active URL: http://localhost:5001/courses/{courseName}/offerings?semester={semesterName}
-- Description: Returns all core goals that are met by a course
-- _not-implemented_
+- Description: Returns all offerings for a particular course within a semester
+- _implemented_
 - task ID: 21118
 
 ---

@@ -113,9 +113,9 @@ namespace CourseRegistration.Services
     }
 
     /*
-     * GetCourseOfferingsBySemester - returns all course offerings by user selected semester
+     * GetAllCourseOfferingsBySemester - returns all course offerings by user selected semester
      */
-    public List<CourseOffering> GetCourseOfferingsBySemester(String semester)
+    public List<CourseOffering> GetAllCourseOfferingsBySemester(String semester)
     {
       String userSemester = semester.ToLower();
       String courseSemester;
@@ -133,6 +133,28 @@ namespace CourseRegistration.Services
       }
       return courseOfferingsBySemester;
     }
+    /*
+     * GetCourseOfferingsBySemester - returns offerings for a particular course within a semester
+     */
+    public List<CourseOffering> GetCourseOfferingsBySemester(String courseName, String semester)
+    {
+      String courseSemester;
+      String course_name;
+      List<CourseOffering> courseOfferings = _repo.Offerings;
+      List<CourseOffering> courseOfferingsBySemesterAndCourse = new List<CourseOffering>();
+
+      foreach (CourseOffering course in courseOfferings)
+      {
+        courseSemester = course.Semester.ToLower();
+        course_name = course.TheCourse.Name.ToLower();
+
+        if (courseSemester.Equals(semester.ToLower()) && course_name.Equals(courseName.ToLower()))
+        {
+          courseOfferingsBySemesterAndCourse.Add(course);
+        }
+      }
+      return courseOfferingsBySemesterAndCourse;
+    }
 
     /*
      * GetCourseOfferingsBySemesterAndDept - returns all course offerings by user selected semester & dept
@@ -140,7 +162,7 @@ namespace CourseRegistration.Services
     public List<CourseOffering> GetCourseOfferingsBySemesterAndDept(String semester, String department)
     {
       List<CourseOffering> courseOfferingsBySemesterAndDept = new List<CourseOffering>();
-      List<CourseOffering> semesterOfferings = GetCourseOfferingsBySemester(semester);
+      List<CourseOffering> semesterOfferings = GetAllCourseOfferingsBySemester(semester);
 
       foreach (CourseOffering c in semesterOfferings)
       {
