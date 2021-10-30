@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using CourseRegistration.Models;
 using CourseRegistration.Services;
 
@@ -29,9 +28,9 @@ namespace CourseRegistration.Controllers
         if (courses != null) return Ok(courses);
         else return BadRequest();
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
 
@@ -51,9 +50,9 @@ namespace CourseRegistration.Controllers
         }
         return StatusCode(404, "Course not found");
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
 
@@ -75,9 +74,9 @@ namespace CourseRegistration.Controllers
         if (coursesByDept.Count() > 0) return Ok(coursesByDept);
         return StatusCode(404, "Course not found");
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
 
@@ -90,12 +89,12 @@ namespace CourseRegistration.Controllers
         if (goalsMetByCourse.Count > 0) return Ok(goalsMetByCourse);
         else return StatusCode(404, "No Core Goals for Course Found");
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
-    
+
     [HttpGet("{courseName}/offerings")]
     public IActionResult GetCourseOfferingsBySemester(string courseName, string semester)
     {
@@ -105,9 +104,9 @@ namespace CourseRegistration.Controllers
         if (courseOfferings.Count > 0) return Ok(courseOfferings);
         else return StatusCode(404, "No Semester Offerings for Course Found");
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server Error");
+        return StatusCode(500, err);
       }
     }
 
@@ -119,9 +118,9 @@ namespace CourseRegistration.Controllers
         _courseServices.AddCourse(course);
         return CreatedAtRoute("GetCourse", new { courseName = course.Name }, course);
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server error");
+        return StatusCode(500, err);
       }
     }
 
@@ -133,9 +132,9 @@ namespace CourseRegistration.Controllers
         if (_courseServices.UpdateCourse(course)) return StatusCode(200, "Course Updated");
         else return BadRequest();
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server error");
+        return StatusCode(500, err);
       }
     }
 
@@ -147,9 +146,9 @@ namespace CourseRegistration.Controllers
         if (_courseServices.DeleteCourse(courseName)) return NoContent();
         else return BadRequest();
       }
-      catch (Exception e)
+      catch (Exception err)
       {
-        return StatusCode(500, "Internal Server error");
+        return StatusCode(500, err);
       }
     }
   }
