@@ -95,6 +95,7 @@ namespace CourseRegistration.Controllers
         return StatusCode(500, "Internal Server Error");
       }
     }
+    
     [HttpGet("{courseName}/offerings")]
     public IActionResult GetCourseOfferingsBySemester(string courseName, string semester)
     {
