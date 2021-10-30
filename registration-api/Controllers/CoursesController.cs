@@ -95,6 +95,21 @@ namespace CourseRegistration.Controllers
         return StatusCode(500, "Internal Server Error");
       }
     }
+    
+    [HttpGet("{courseName}/offerings")]
+    public IActionResult GetCourseOfferingsBySemester(string courseName, string semester)
+    {
+      try
+      {
+        List<CourseOffering> courseOfferings = _courseServices.GetCourseOfferingsBySemester(courseName, semester);
+        if (courseOfferings.Count > 0) return Ok(courseOfferings);
+        else return StatusCode(404, "No Semester Offerings for Course Found");
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server Error");
+      }
+    }
 
     [HttpPost]
     public IActionResult CreateCourse(Course course)
