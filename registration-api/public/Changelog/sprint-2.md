@@ -51,7 +51,7 @@ In this sprint the project aims to implement the following API endpoints for uti
 - Method: PUT
 - Active URL: http://localhost:5001/courses/{courseName}
 - Description: Updates a course within the repository
-- _not-implemented_
+- _implemented_
 - task ID: 21115
 
 ### DeleteCourse

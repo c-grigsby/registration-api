@@ -94,5 +94,19 @@ namespace CourseRegistration.Controllers
         return StatusCode(500, "Internal Server error");
       }
     }
+
+    [HttpPut]
+    public IActionResult UpdateCourse(Course course)
+    {
+      try
+      {
+        if (_courseServices.UpdateCourse(course)) return StatusCode(200, "Course Updated");
+        else return StatusCode(500);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, "Internal Server error");
+      }
+    }
   }
 }

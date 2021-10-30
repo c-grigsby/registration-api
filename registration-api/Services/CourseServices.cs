@@ -68,6 +68,27 @@ namespace CourseRegistration.Services
       List<Course> courses = _repo.Courses;
       courses.Add(course);
     }
+    /*
+    * UpdateCourse - updates a course in the repository, returns true if successful
+    */
+    public Boolean UpdateCourse(Course course)
+    {
+      List<Course> courses = _repo.Courses;
+      foreach (Course c in courses)
+      {
+        string courseName = c.Name.ToLower();
+        if (courseName.Equals(course.Name.ToLower()))
+        {
+          c.Name = course.Name;
+          c.Title = course.Title;
+          c.Credits = course.Credits;
+          c.Description = course.Description;
+          c.Department = course.Department;
+          return true;
+        }
+      }
+      return false;
+    }
 
     /*
      * GetCourseOfferingsBySemester - returns all course offerings by user selected semester
