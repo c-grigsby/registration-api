@@ -9,7 +9,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/registration-api/bin/Debug/net5.0/registration-api-fa21-grigsby9.dll",
+      "program": "${workspaceFolder}/registration-api/bin/Debug/net5.0/registration-api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/registration-api",
       "stopAtEntry": false,

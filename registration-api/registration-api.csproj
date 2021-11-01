@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>registration_api_fa21_grigsby9</RootNamespace>
+    <RootNamespace>registration_api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

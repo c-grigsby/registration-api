@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/registration-api/registration-api-fa21-grigsby9.csproj",
+        "${workspaceFolder}/registration-api/registration-api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/registration-api/registration-api-fa21-grigsby9.csproj",
+        "${workspaceFolder}/registration-api/registration-api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -32,7 +32,7 @@
       "args": [
         "watch",
         "run",
-        "${workspaceFolder}/registration-api/registration-api-fa21-grigsby9.csproj",
+        "${workspaceFolder}/registration-api/registration-api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
