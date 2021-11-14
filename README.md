@@ -20,7 +20,8 @@ This server-side application is the back-end to the course registration applicat
 ## Project Specifications
 
 - Developed within .NET Core web API framework
-- REST API to search for courses via departments, core goals, & semesters
+- REST API to search for course information via departments, core goals, & semesters
+- Persists data via MySQL
 - _create, read, update, delete_ (CRUD) services
 - xUnit.net for testing
 

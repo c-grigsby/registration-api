@@ -16,17 +16,17 @@ In this sprint the project aims to reconfigure the repository layer to interact 
 
 ### Implement connection to MySQL_CourseRegistration Database
 
-- _not-implemented_
+- _implemented_
 - task ID: 31111
 
-### Implement CourseRepository methods to interact with the database
+### Implement CRUD CourseRepository methods to interact with the database
 
-- _not-implemented_
+- _implemented_
 - task ID: 31112
 
-### Update CourseServices as needed to interact with the respository layer
+### Update CRUD CourseServices as needed to interact with the respository layer
 
-- _not-implemented_
+- _implemented_
 - task ID: 31113
 
 ---
