@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using CourseRegistration.Services;
 using CourseRegistration.Repository;
+using Newtonsoft.Json;
 
 namespace registration_api_fa21_grigsby9
 {
@@ -31,7 +32,7 @@ namespace registration_api_fa21_grigsby9
       services.AddSingleton<ICourseRepository, CourseRepository>();
       services.AddSingleton<ICourseServices, CourseServices>();
 
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson();
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "registration_api_fa21_grigsby9", Version = "v1" });
