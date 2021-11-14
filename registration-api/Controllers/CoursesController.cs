@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CourseRegistration.Models;
 using CourseRegistration.Services;
+using Newtonsoft.Json;
 
 namespace CourseRegistration.Controllers
 {
@@ -39,14 +40,10 @@ namespace CourseRegistration.Controllers
     {
       try
       {
-        List<Course> courses = _courseServices.GetCourses();
-        foreach (Course c in courses)
+        Course course = _courseServices.GetCourseByName(courseName);
+        if (course != null)
         {
-          string course = c.Name.ToLower();
-          if (course.Equals(courseName.ToLower()))
-          {
-            return Ok(c);
-          }
+          return Ok(course);
         }
         return StatusCode(404, "Course not found");
       }
@@ -115,8 +112,12 @@ namespace CourseRegistration.Controllers
     {
       try
       {
-        _courseServices.AddCourse(course);
-        return CreatedAtRoute("GetCourse", new { courseName = course.Name }, course);
+        Course c = _courseServices.AddCourse(course);
+        if (c != null)
+        {
+          return CreatedAtRoute("GetCourse", new { courseName = course.Name }, course);
+        }
+        return BadRequest();
       }
       catch (Exception err)
       {
@@ -129,7 +130,8 @@ namespace CourseRegistration.Controllers
     {
       try
       {
-        if (_courseServices.UpdateCourse(course)) return StatusCode(200, "Course Updated");
+        Boolean result = _courseServices.UpdateCourse(course);
+        if (result) return StatusCode(200, "Course Updated");
         else return BadRequest();
       }
       catch (Exception err)

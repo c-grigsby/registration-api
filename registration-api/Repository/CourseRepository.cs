@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CourseRegistration.Models;
+using MySql.Data.MySqlClient;
 
 namespace CourseRegistration.Repository
 {
@@ -10,126 +11,110 @@ namespace CourseRegistration.Repository
     public List<CoreGoal> Goals { get; set; }
     public List<CourseOffering> Offerings { get; set; }
 
+    private MySqlConnection _connection;
+
     public CourseRepository()
     {
-      Courses = new List<Course>();
-      Goals = new List<CoreGoal>();
-      Offerings = new List<CourseOffering>();
+      DotNetEnv.Env.Load();
+      string connectionString = Environment.GetEnvironmentVariable("connectionString");
+      _connection = new MySqlConnection(connectionString);
+      _connection.Open();
+    }
+    ~CourseRepository()
+    {
+      _connection.Close();
+    }
 
-      Course c1 = new Course()
-      {
-        Name = "ARTS 201",
-        Title = "Graphic Design",
-        Credits = 3.0,
-        Description = "More valuable than you might realize",
-        Department = "ARTS"
-      };
+    public IEnumerable<Course> GetAllCourses()
+    {
+      var statement = "SELECT * FROM Courses";
+      var command = new MySqlCommand(statement, _connection);
+      var results = command.ExecuteReader();
 
-      Course c2 = new Course()
-      {
-        Name = "ARTS 101",
-        Title = "Art Studio",
-        Credits = 3.0,
-        Description = "Get your paint on!",
-        Department = "ARTS"
-      };
+      List<Course> courseList = new List<Course>();
 
-      Course c3 = new Course()
+      while (results.Read())
       {
-        Name = "STAT 201",
-        Title = "Stats",
-        Credits = 4.0,
-        Description = "Where science and math make sense from data",
-        Department = "MATH"
-      };
+        Course course = new Course
+        {
+          Name = (string)results[0],
+          Title = (string)results[1],
+          Credits = (double)results[2],
+          Description = (string)results[3],
+          Department = (string)results[4]
+        };
+        courseList.Add(course);
+      }
+      results.Close();
+      return courseList;
+    }
 
-      Course c4 = new Course()
-      {
-        Name = "ENGL 302",
-        Title = "Math as a Communication Language",
-        Credits = 4.0,
-        Description = "A math course for English majors",
-        Department = "ENGL"
-      };
+    public Course GetCourseByName(string courseName)
+    {
+      var statement = "SELECT * FROM Courses WHERE Name=@givenName";
+      var command = new MySqlCommand(statement, _connection);
+      command.Parameters.AddWithValue("@givenName", courseName);
+      var results = command.ExecuteReader();
 
-      Course c5 = new Course()
+      if (results.Read())
       {
-        Name = "CSCI 330",
-        Title = "Systems Analysis & Software Engineering",
-        Credits = 3.0,
-        Description = "A swell course with a fantastic teacher!",
-        Department = "CSCI"
-      };
-      Courses.Add(c1);
-      Courses.Add(c2);
-      Courses.Add(c3);
-      Courses.Add(c4);
-      Courses.Add(c5);
+        Course course = new Course
+        {
+          Name = (string)results[0],
+          Title = (string)results[1],
+          Credits = (double)results[2],
+          Description = (string)results[3],
+          Department = (string)results[4]
+        };
+        results.Close();
+        return course;
+      }
+      results.Close();
+      return null;
+    }
 
-      CourseOffering co1 = new CourseOffering()
-      {
-        TheCourse = c1,
-        Section = "D1",
-        Semester = "Spring 2021"
-      };
+    public Course InsertCourse(Course newCourse)
+    {
+      var statement = "INSERT INTO Courses (Name, Title, Credits, Description, Department) VALUES (@Name, @Title, @Credits, @Description, @Department)";
+      var command = new MySqlCommand(statement, _connection);
+      command.Parameters.AddWithValue("@Name", newCourse.Name);
+      command.Parameters.AddWithValue("@Title", newCourse.Title);
+      command.Parameters.AddWithValue("@Credits", newCourse.Credits);
+      command.Parameters.AddWithValue("@Description", newCourse.Description);
+      command.Parameters.AddWithValue("@Department", newCourse.Department);
+      var results = command.ExecuteNonQuery();
 
-      CourseOffering co2 = new CourseOffering()
-      {
-        TheCourse = c3,
-        Section = "01",
-        Semester = "Spring 2021"
-      };
+      if (results == 1) { return newCourse; }
+      else return null;
+    }
 
-      CourseOffering co3 = new CourseOffering()
-      {
-        TheCourse = c2,
-        Section = "01",
-        Semester = "Spring 2022"
-      };
-      CourseOffering co4 = new CourseOffering()
-      {
-        TheCourse = c5,
-        Section = "01",
-        Semester = "Fall 2020"
-      };
-      CourseOffering co5 = new CourseOffering()
-      {
-        TheCourse = c3,
-        Section = "01",
-        Semester = "Fall 2020"
-      };
-      Offerings.Add(co1);
-      Offerings.Add(co2);
-      Offerings.Add(co3);
-      Offerings.Add(co4);
-      Offerings.Add(co5);
+    public int UpdateCourse(Course course)
+    {
+      var statement = "UPDATE Courses SET Name=@newName, Title=@newTitle, Credits=@newCredits, Description=@newDescription, Department=@newDepartment WHERE Name=@updateName";
+      var command = new MySqlCommand(statement, _connection);
+      command.Parameters.AddWithValue("@updateName", course.Name);
+      command.Parameters.AddWithValue("@newName", course.Name);
+      command.Parameters.AddWithValue("@newTitle", course.Title);
+      command.Parameters.AddWithValue("@newCredits", course.Credits);
+      command.Parameters.AddWithValue("@newDescription", course.Description);
+      command.Parameters.AddWithValue("@newDepartment", course.Department);
 
-      CoreGoal cg1 = new CoreGoal()
-      {
-        Id = "CG1",
-        Name = "Artistic Expression",
-        Description = "Desc for artistic expression",
-        Courses = new List<Course>() { c1, c2 }
-      };
+      var results = command.ExecuteNonQuery();
 
-      CoreGoal cg2 = new CoreGoal()
-      {
-        Id = "CG2",
-        Name = "Quantitative Literacy",
-        Description = "Desc for quantitative literacy",
-        Courses = new List<Course>() { c2, c3 }
-      };
+      if (results == 1) { return results; }
+      else return -1;
+    }
 
-      CoreGoal cg3 = new CoreGoal()
-      {
-        Id = "CG3",
-        Name = "Effective Communication",
-        Description = "Desc for communication",
-        Courses = new List<Course>() { c4, c3 }
-      };
-      Goals.Add(cg1);
-      Goals.Add(cg2);
-      Goals.Add(cg3);
-    }//end constructor
+    public int DeleteCourse(string courseName)
+    {
+      var statement = "DELETE FROM Courses WHERE Name=@targetValue";
+      var command = new MySqlCommand(statement, _connection);
+      command.Parameters.AddWithValue("@targetValue", courseName);
+
+      var results = command.ExecuteNonQuery();
+
+      if (results == 1) { return results; }
+      else return -1;
+    }
   }
 }

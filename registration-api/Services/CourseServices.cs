@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CourseRegistration.Models;
 using CourseRegistration.Repository;
+using System.Linq;
 
 namespace CourseRegistration.Services
 {
@@ -60,17 +61,17 @@ namespace CourseRegistration.Services
     */
     public List<Course> GetCourses()
     {
-      List<Course> courses = _repo.Courses;
+      List<Course> courses = _repo.GetAllCourses().ToList<Course>();
       return courses;
     }
 
     /*
     * AddCourse - adds a new course to the repository
     */
-    public void AddCourse(Course course)
+    public Course AddCourse(Course course)
     {
-      List<Course> courses = _repo.Courses;
-      courses.Add(course);
+      Course c = _repo.InsertCourse(course);
+      return c;
     }
 
     /*
@@ -78,20 +79,8 @@ namespace CourseRegistration.Services
     */
     public Boolean UpdateCourse(Course course)
     {
-      List<Course> courses = _repo.Courses;
-      foreach (Course c in courses)
-      {
-        string courseName = c.Name.ToLower();
-        if (courseName.Equals(course.Name.ToLower()))
-        {
-          c.Name = course.Name;
-          c.Title = course.Title;
-          c.Credits = course.Credits;
-          c.Description = course.Description;
-          c.Department = course.Department;
-          return true;
-        }
-      }
+      int result = _repo.UpdateCourse(course);
+      if (result == 1) { return true; }
       return false;
     }
     /*
@@ -99,16 +88,8 @@ namespace CourseRegistration.Services
     */
     public Boolean DeleteCourse(string courseName)
     {
-      List<Course> courses = _repo.Courses;
-      foreach (Course course in courses)
-      {
-        string repoCourseName = course.Name.ToLower();
-        if (repoCourseName.Equals(courseName.ToLower()))
-        {
-          courses.Remove(course);
-          return true;
-        }
-      }
+      int result = _repo.DeleteCourse(courseName); 
+      if (result == 1) { return true; }
       return false;
     }
 
@@ -194,6 +175,11 @@ namespace CourseRegistration.Services
         }
       }
       return goalsMetByCourse;
+    }
+
+    public Course GetCourseByName(string courseName)
+    {
+      return _repo.GetCourseByName(courseName);
     }
   }
 }

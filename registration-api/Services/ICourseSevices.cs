@@ -7,7 +7,7 @@ namespace CourseRegistration.Services
 {
   public interface ICourseServices
   {
-    public void AddCourse(Course course);
+    public Course AddCourse(Course course);
 
     public Boolean DeleteCourse(string courseName);
 
@@ -25,5 +25,6 @@ namespace CourseRegistration.Services
 
     public List<CourseOffering> GetOfferingsByGoalIdAndSemester(String theGoalId, String semester);
 
+    public Course GetCourseByName(string courseName);
   }
 }
