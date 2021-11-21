@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CourseRegistration.Models;
 
-
 namespace CourseRegistration.Repository
 {
   public interface ICourseRepository

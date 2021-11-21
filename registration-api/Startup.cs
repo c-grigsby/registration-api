@@ -31,6 +31,7 @@ namespace registration_api_fa21_grigsby9
     {
       services.AddSingleton<ICourseRepository, CourseRepository>();
       services.AddSingleton<ICourseServices, CourseServices>();
+      services.AddSingleton<ICoreGoalServices, CoreGoalServices>();
 
       services.AddControllers().AddNewtonsoftJson();
       services.AddSwaggerGen(c =>
