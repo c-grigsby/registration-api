@@ -34,7 +34,7 @@ In this sprint the project aims to reconfigure the repository layer to interact 
 - _implemented_
 - task ID: 31114
 
-### Implement methods for GetCoreGoalsWithCoursesById & GetCoursesForCoreGoalById to the CoreGoalsRepository
+### Implement methods for GetCoreGoalsWithCoursesById, GetCoursesForCoreGoalById, AddCourseToCoreGoal to the CoreGoalsRepository
 
 - _not-implemented_
 - task ID: 31115

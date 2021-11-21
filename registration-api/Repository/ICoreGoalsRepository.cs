@@ -10,10 +10,16 @@ namespace CourseRegistration.Repository
 
     public CoreGoal GetCoreGoalById(string courseName);
 
+    public CoreGoal GetCoreGoalWithCoursesById(string id);
+
+    public IEnumerable<Course> GetCoursesForCoreGoalById(string id);
+
     public CoreGoal InsertCoreGoal(CoreGoal newCourse);
 
-    public int UpdateCoreGoal(string goalId, CoreGoal course);
+    public bool UpdateCoreGoal(string goalId, CoreGoal course);
 
-    public int DeleteCoreGoal(string courseName);
+    public bool AddCourseToCoreGoal(string id, Course newCourse);
+
+    public bool DeleteCoreGoal(string courseName);
   }
 }

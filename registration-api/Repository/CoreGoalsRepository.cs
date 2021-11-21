@@ -65,6 +65,52 @@ namespace CourseRegistration.Repository
       return null;
     }
 
+    public CoreGoal GetCoreGoalWithCoursesById(string id)
+    {
+      List<CoreGoalCourses> coreGoalCourses = new List<CoreGoalCourses>();
+      CoreGoal coreGoalWithCourses = GetCoreGoalById(id);
+      CourseRepository courseRepo = new CourseRepository();
+      IEnumerable<Course> courses = courseRepo.GetAllCourses();
+
+      var statement = "SELECT * FROM CoreGoalCourses WHERE GoalId=@goalId";
+      var command = new MySqlCommand(statement, _connection);
+      command.Parameters.AddWithValue("@goalId", id);
+      var results = command.ExecuteReader();
+
+      if (results.Read())
+      {
+        CoreGoalCourses coreGoal = new CoreGoalCourses
+        {
+          GoalId = (string)results[0],
+          CourseName = (string)results[1],
+        };
+        coreGoalCourses.Add(coreGoal);
+      }
+      results.Close();
+
+      foreach (CoreGoalCourses coreGoal in coreGoalCourses)
+      {
+        foreach (Course course in courses)
+        {
+          if (coreGoal.GoalId == course.Name)
+          {
+            coreGoalWithCourses.Courses.Add(course);
+          }
+        }
+      }
+      return coreGoalWithCourses;
+    }
+
+    public IEnumerable<Course> GetCoursesForCoreGoalById(string id)
+    {
+      List<Course> courses = new List<Course>();
+      CoreGoal coreGoalWithCourses = GetCoreGoalWithCoursesById(id);
+
+      courses = coreGoalWithCourses.Courses;
+
+      return courses;
+    }
+
     public CoreGoal InsertCoreGoal(CoreGoal newCoreGoal)
     {
       var statement = "INSERT INTO CoreGoals (Id, Name, Description) VALUES (@Id, @Name, @Desciption)";
@@ -78,7 +124,7 @@ namespace CourseRegistration.Repository
       else return null;
     }
 
-    public int UpdateCoreGoal(string goalId, CoreGoal coreGoal)
+    public bool UpdateCoreGoal(string goalId, CoreGoal coreGoal)
     {
       var statement = "UPDATE Courses SET Id=@newId, Name=@newName, Description=@newDescription WHERE Id=@updateId";
       var command = new MySqlCommand(statement, _connection);
@@ -89,20 +135,31 @@ namespace CourseRegistration.Repository
 
       var results = command.ExecuteNonQuery();
 
-      if (results == 1) { return results; }
-      else return -1;
+      if (results == 1) { return true; }
+      else return false;
     }
 
-    public int DeleteCoreGoal(string goalId)
+    public bool AddCourseToCoreGoal(string id, Course newCourse)
+    {
+      var statement = "INSERT INTO CoreGoalCourses (GoalId, CourseName) VALUES (@GoalId, @CourseName)";
+      var command = new MySqlCommand(statement, _connection);
+      command.Parameters.AddWithValue("@GoalId", id);
+      command.Parameters.AddWithValue("@CourseName", newCourse.Name);
+      var results = command.ExecuteNonQuery();
+
+      if (results == 1) { return true; }
+      else return false;
+    }
+
+    public bool DeleteCoreGoal(string goalId)
     {
       var statement = "DELETE FROM CoreGoals WHERE Id=@targetValue";
       var command = new MySqlCommand(statement, _connection);
       command.Parameters.AddWithValue("@targetValue", goalId);
-
       var results = command.ExecuteNonQuery();
 
-      if (results == 1) { return results; }
-      else return -1;
+      if (results == 1) { return true; }
+      else return false;
     }
   }
 }

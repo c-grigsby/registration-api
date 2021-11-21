@@ -23,7 +23,7 @@ namespace CourseRegistration.Models
 
     public int CompareTo(CoreGoal other)
     {
-      return this.Name.CompareTo(other.Name);
+      return this.Id.CompareTo(other.Id);
     }
   }
 }
