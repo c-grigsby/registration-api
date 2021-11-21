@@ -11,19 +11,27 @@ namespace CourseRegistration.Models
     public string Description { get; set; }
     public List<Course> Courses { get; set; }
 
+    public CoreGoal () {
+      Courses = new List<Course>();
+    }
+
     public override String ToString()
     {
       StringBuilder courseList = new StringBuilder();
-      foreach (Course c in Courses)
+      if (Courses != null)
       {
-        courseList.Append(c.ToString() + ",");
+        foreach (Course c in Courses)
+        {
+          courseList.Append(c.ToString() + ",");
+        }
+        return $"{Id}-{Name}: {Description} ()\n{courseList.ToString()}\n";
       }
-      return $"{Id}-{Name}: {Description} ()\n{courseList.ToString()}\n";
+      return $"{Id}-{Name}: {Description}";
     }
 
     public int CompareTo(CoreGoal other)
     {
-      return this.Name.CompareTo(other.Name);
+      return this.Id.CompareTo(other.Id);
     }
   }
 }

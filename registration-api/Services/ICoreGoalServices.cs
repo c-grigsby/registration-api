@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using CourseRegistration.Models;
+using CourseRegistration.Repository;
 
-namespace CourseRegistration.Repository
+namespace CourseRegistration.Services
 {
-  public interface ICoreGoalsRepository
+  public interface ICoreGoalServices
   {
     public IEnumerable<CoreGoal> GetAllCoreGoals();
 
