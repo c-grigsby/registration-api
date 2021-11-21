@@ -8,7 +8,7 @@
 
 ### _v0.0.3_
 
-## Status: Complete
+## Status: Active
 
 ---
 
@@ -31,13 +31,23 @@ In this sprint the project aims to reconfigure the repository layer to interact 
 
 ### Implement CRUD CoreGoals methods to interact with the CourseRegistration database
 
-- _not-implemented_
+- _implemented_
 - task ID: 31114
 
-### Implement CoreGoalsServices to interact with its respository layer
+### Implement methods for GetCoreGoalsWithCoursesById & GetCoursesForCoreGoalById to the CoreGoalsRepository
 
 - _not-implemented_
 - task ID: 31115
+
+### Implement CoreGoalsServices to interact with its repository layer
+
+- _not-implemented_
+- task ID: 31116
+
+### Implement CoreGoalsController
+
+- _not-implemented_
+- task ID: 31117
 
 ---
 

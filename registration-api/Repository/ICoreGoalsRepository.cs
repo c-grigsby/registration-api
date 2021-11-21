@@ -12,7 +12,7 @@ namespace CourseRegistration.Repository
 
     public CoreGoal InsertCoreGoal(CoreGoal newCourse);
 
-    public int UpdateCoreGoal(CoreGoal course);
+    public int UpdateCoreGoal(string goalId, CoreGoal course);
 
     public int DeleteCoreGoal(string courseName);
   }

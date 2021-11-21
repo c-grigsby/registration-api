@@ -78,11 +78,11 @@ namespace CourseRegistration.Repository
       else return null;
     }
 
-    public int UpdateCoreGoal(CoreGoal coreGoal)
+    public int UpdateCoreGoal(string goalId, CoreGoal coreGoal)
     {
       var statement = "UPDATE Courses SET Id=@newId, Name=@newName, Description=@newDescription WHERE Id=@updateId";
       var command = new MySqlCommand(statement, _connection);
-      command.Parameters.AddWithValue("@updateId", coreGoal.Id);
+      command.Parameters.AddWithValue("@updateId", goalId);
       command.Parameters.AddWithValue("@newId", coreGoal.Id);
       command.Parameters.AddWithValue("@newName", coreGoal.Name);
       command.Parameters.AddWithValue("@newTitle", coreGoal.Description);
