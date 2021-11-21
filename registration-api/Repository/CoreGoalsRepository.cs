@@ -45,7 +45,7 @@ namespace CourseRegistration.Repository
 
     public CoreGoal GetCoreGoalById(string goalId)
     {
-      var statement = "SELECT * FROM CoreGoals WHERE Name=@goalId";
+      var statement = "SELECT * FROM CoreGoals WHERE Id=@goalId";
       var command = new MySqlCommand(statement, _connection);
       command.Parameters.AddWithValue("@goalId", goalId);
       var results = command.ExecuteReader();
@@ -77,7 +77,7 @@ namespace CourseRegistration.Repository
       command.Parameters.AddWithValue("@goalId", id);
       var results = command.ExecuteReader();
 
-      if (results.Read())
+      while (results.Read())
       {
         CoreGoalCourses coreGoal = new CoreGoalCourses
         {
@@ -92,7 +92,7 @@ namespace CourseRegistration.Repository
       {
         foreach (Course course in courses)
         {
-          if (coreGoal.GoalId == course.Name)
+          if (course.Name.Equals(coreGoal.CourseName))
           {
             coreGoalWithCourses.Courses.Add(course);
           }
@@ -108,12 +108,15 @@ namespace CourseRegistration.Repository
 
       courses = coreGoalWithCourses.Courses;
 
+      System.Console.WriteLine("===Courses===");
+      System.Console.WriteLine(courses);
+
       return courses;
     }
 
     public CoreGoal InsertCoreGoal(CoreGoal newCoreGoal)
     {
-      var statement = "INSERT INTO CoreGoals (Id, Name, Description) VALUES (@Id, @Name, @Desciption)";
+      var statement = "INSERT INTO CoreGoals (Id, Name, Description) VALUES (@Id, @Name, @Description)";
       var command = new MySqlCommand(statement, _connection);
       command.Parameters.AddWithValue("@Id", newCoreGoal.Id);
       command.Parameters.AddWithValue("@Name", newCoreGoal.Name);
@@ -126,12 +129,12 @@ namespace CourseRegistration.Repository
 
     public bool UpdateCoreGoal(string goalId, CoreGoal coreGoal)
     {
-      var statement = "UPDATE Courses SET Id=@newId, Name=@newName, Description=@newDescription WHERE Id=@updateId";
+      var statement = "UPDATE CoreGoals SET Id=@newId, Name=@newName, Description=@newDescription WHERE Id=@updateId";
       var command = new MySqlCommand(statement, _connection);
       command.Parameters.AddWithValue("@updateId", goalId);
       command.Parameters.AddWithValue("@newId", coreGoal.Id);
       command.Parameters.AddWithValue("@newName", coreGoal.Name);
-      command.Parameters.AddWithValue("@newTitle", coreGoal.Description);
+      command.Parameters.AddWithValue("@newDescription", coreGoal.Description);
 
       var results = command.ExecuteNonQuery();
 
