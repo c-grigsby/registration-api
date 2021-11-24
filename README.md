@@ -12,6 +12,8 @@
 ![language](https://img.shields.io/badge/language-C%23-orange)
 
 This server-side application is the back-end to the course registration application
+<br/>
+_Coursework for CSCI-330: Software Engineering at CCU_
 
 </div>
 
@@ -24,12 +26,13 @@ This server-side application is the back-end to the course registration applicat
 - Persists data via MySQL
 - _create, read, update, delete_ (CRUD) services
 - xUnit.net for testing
+- Controller, Service, and Repository layers
 
 ---
 
 #### This application utilizes a .env file to host environment variables. To utilize configure:
 
-- ##### connectionString
+- ##### connectionString={MySQLConnectionString}
 
 ---
 
