@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using CourseRegistration.Models;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+using System;
 
 namespace CourseRegistration.Repository
 {
@@ -107,9 +107,6 @@ namespace CourseRegistration.Repository
       CoreGoal coreGoalWithCourses = GetCoreGoalWithCoursesById(id);
 
       courses = coreGoalWithCourses.Courses;
-
-      System.Console.WriteLine("===Courses===");
-      System.Console.WriteLine(courses);
 
       return courses;
     }

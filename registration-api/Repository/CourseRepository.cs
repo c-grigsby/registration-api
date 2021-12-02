@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using CourseRegistration.Models;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+using System;
 
 namespace CourseRegistration.Repository
 {

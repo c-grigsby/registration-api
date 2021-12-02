@@ -13,7 +13,7 @@
 
 This server-side application is the back-end to the course registration application
 <br/>
-_Coursework for CSCI-330: Software Engineering at CCU_
+_Coursework at CCU_
 
 </div>
 
@@ -30,7 +30,7 @@ _Coursework for CSCI-330: Software Engineering at CCU_
 
 ---
 
-#### This application utilizes a .env file to host environment variables. To utilize configure:
+#### This application utilizes a .env file to host environment variables. To configure:
 
 - ##### connectionString={MySQLConnectionString}
 
