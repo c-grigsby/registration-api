@@ -1,11 +1,11 @@
-using System;
-using Xunit;
-using System.Collections.Generic;
-using Moq;
-using System.Linq;
+using CourseRegistration.Models;
 using CourseRegistration.Repository;
 using CourseRegistration.Services;
-using CourseRegistration.Models;
+using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System;
+using Xunit;
 
 namespace registration_api.tests
 {

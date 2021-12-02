@@ -1,6 +1,6 @@
-using System;
-using System.Collections.Generic;
 using CourseRegistration.Models;
+using System.Collections.Generic;
+using System;
 
 namespace CourseRegistration.Repository
 {
