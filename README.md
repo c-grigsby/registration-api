@@ -13,7 +13,7 @@
 
 This server-side application is the back-end to the course registration application
 <br/>
-_Coursework at CCU_
+_Coursework for CCU_
 
 </div>
 
@@ -24,7 +24,7 @@ _Coursework at CCU_
 - Developed within .NET Core web API framework
 - REST API to query course information via departments, core goals, & semesters
 - Persists data via MySQL
-- _create, read, update, delete_ (CRUD) services
+- create, read, update, delete (CRUD) services
 - xUnit.net for testing
 - Controller, Service, and Repository layers
 
@@ -41,3 +41,59 @@ _Coursework at CCU_
 - [v0.0.1](./registration-api/public/Changelog/sprint-1.md)
 - [v0.0.2](./registration-api/public/Changelog/sprint-2.md)
 - [v0.0.3](./registration-api/public/Changelog/sprint-3.md)
+
+---
+
+## API References
+
+### GetCourses
+
+- Method: GET
+- URL: https://localhost:5001/courses
+- Description: Returns a list of all courses from the repository
+
+### GetCourseByName
+
+- Method: GET
+- URL: https://localhost:5001/courses/{courseName}
+- Description: Returns course details from a course name
+
+### GetCoursesByDept
+
+- Method: GET
+- URL: https://localhost:5001/courses/search?dept={departmentName}
+- Description: Returns a list of all courses from a department within the repository
+
+### CreateCourse
+
+- Method: POST
+- URL: https://localhost:5001/courses
+- Body: JSON object with the values for {Name, Title, Credits, Description, Department}
+- Description: Creates a new course in the repository
+
+### UpdateCourse
+
+- Method: PUT
+- URL: https://localhost:5001/courses
+- Body: JSON object with the values for {Name, Title, Credits, Description, Department}
+- Description: Updates a course within the repository
+
+### DeleteCourse
+
+- Method: DELETE
+- URL: https://localhost:5001/courses/{courseName}
+- Description: Deletes a course from the repository
+
+### GetGoalsByCourse
+
+- Method: GET
+- URL: https://localhost:5001/courses/goals/{courseName}
+- Description: Returns all core goals that are met by a course
+
+### GetCourseOfferingsBySemester
+
+- Method: GET
+- URL: https://localhost:5001/courses/{courseName}/offerings?semester={semesterName}
+- Description: Returns all offerings for a particular course within a semester
+
+---
